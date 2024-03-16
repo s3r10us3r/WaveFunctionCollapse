@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveFunctionCollapse", "WaveFunctionCollapse.csproj", "{21CC2B07-85C5-45E1-B052-99A348C178C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaveFunctionCollapse", "WaveFunctionCollapse.csproj", "{21CC2B07-85C5-45E1-B052-99A348C178C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTiledModelTests", "..\SimpleTiledModelTests\SimpleTiledModelTests.csproj", "{D055EF2F-9C08-49F9-A1F5-DBAD6789D364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D055EF2F-9C08-49F9-A1F5-DBAD6789D364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D055EF2F-9C08-49F9-A1F5-DBAD6789D364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D055EF2F-9C08-49F9-A1F5-DBAD6789D364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D055EF2F-9C08-49F9-A1F5-DBAD6789D364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

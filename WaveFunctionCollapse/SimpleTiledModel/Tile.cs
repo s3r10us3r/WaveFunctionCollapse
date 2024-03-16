@@ -5,35 +5,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WaveFunctionCollapse.WaveFunctionCollapse
+namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel
 {
     public class Tile
     {
-        //this list contains all tile instances according to their ids
-        public static List<Tile> list = new List<Tile>();
-        private static int idCounter = 0;
-
-        public static void ClearTileList()
-        {
-            list = new List<Tile>();
-            idCounter = 0;
-        }
-
         public HashSet<int> TopNeighbors { get; set; }
         public HashSet<int> RightNeighbors { get; set; }
         public HashSet<int> BottomNeighbors { get; set; }
         public HashSet<int> LeftNeighbors { get; set; }
 
-        public readonly int id;
         public readonly int[] bitMap;
 
-        public Tile(int[] bitMap)
+        public Tile(int[] bitMap, HashSet<int> topNeighbors, HashSet<int> rightNeighbors, HashSet<int> leftNeighbors, HashSet<int> bottomNeighbors)
         {
-            id = idCounter++;
             this.bitMap = bitMap;
-            list.Add(this);
+            TopNeighbors = topNeighbors;
+            RightNeighbors = rightNeighbors;
+            LeftNeighbors = leftNeighbors;
+            BottomNeighbors = bottomNeighbors;
         }
-
-
     }
 }

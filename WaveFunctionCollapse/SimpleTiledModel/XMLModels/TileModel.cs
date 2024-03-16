@@ -39,6 +39,73 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
                 throw new ArgumentException($"Provided n:{n} does not match image width:{preProcessedBitmap.Width} and height:{preProcessedBitmap.Height}");
             }
             CopyBitMapToArray(preProcessedBitmap, pixelFormat);
+
+            switch (SymmetryType)
+            {
+                case 'X':
+                    Right = Top.Rotate();
+                    Bottom = Right.Rotate();
+                    Left = Bottom.Rotate();
+                    break;
+                case 'T':
+                    Left = Right.Reflect();
+                    break;
+                case 'I':
+                    Bottom = Top.Rotate().Rotate();
+                    Left = Right.Reflect();
+                    break;
+                case '\\':
+                    Right = Top.Reflect().Rotate();
+                    Bottom = Right.Reflect().Rotate();
+                    Left = Bottom.Reflect().Rotate();
+                    break;
+                case 'L':
+                    Left = Bottom.Reflect().Rotate();
+                    break;
+                case 'F':
+                    break;
+                default:
+                    throw new ArgumentException($"Invalid symmetry type '{SymmetryType}'. Symmetry type must be one of: 'X', 'T', 'I', 'L', '\\', 'F'");
+            }
+        }
+
+        public Tile GetTile()
+        {
+            return new Tile(bitmap);
+        }
+
+        public TileModel Rotate()
+        {
+            //we only account for symmetry type for the untrasformed tile so we do not have to pass the symetry type any further
+            TileModel rotatedModel = new TileModel
+            {
+                Name = Name,
+                Top = Left.Rotate(),
+                Right = Top.Rotate(),
+                Bottom = Right.Rotate(),
+                Left = Bottom.Rotate()
+            };
+            rotatedModel.bitmap = RotateBitmap();
+            rotatedModel.n = n;
+
+            return rotatedModel;
+        }
+
+        public TileModel Reflect()
+        {
+            TileModel reflectedModel = new TileModel
+            {
+                Name = Name,
+                Top = Top.Reflect(),
+                Right = Left.Reflect(),
+                Bottom = Bottom.Reflect(),
+                Left = Right.Reflect()
+            };
+
+            reflectedModel.bitmap = ReflectBitmap();
+            reflectedModel.n = n;
+
+            return reflectedModel;
         }
 
         private void ValidateArgs(string format)
