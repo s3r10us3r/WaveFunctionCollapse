@@ -1,4 +1,4 @@
-﻿namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
+﻿namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 {
     public class XMLException : Exception
     {

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
+namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 {
-    internal class NeighbourCollection
+    public class NeighbourCollection
     {
         [XmlElement("Neighbour", IsNullable = false)]
         public List<Neighbour> Neighbours { get; set; }
@@ -15,8 +15,8 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
         public NeighbourCollection Rotate()
         {
             List<Neighbour> rotatedNeighbours = new List<Neighbour>();
- 
-            foreach(Neighbour neighbour in Neighbours)
+
+            foreach (Neighbour neighbour in Neighbours)
             {
                 rotatedNeighbours.Add(neighbour.Rotate());
             }
@@ -30,8 +30,8 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
         public NeighbourCollection Reflect()
         {
             List<Neighbour> reflectedNeighbours = new List<Neighbour>();
-            
-            foreach(Neighbour neighbour in Neighbours)
+
+            foreach (Neighbour neighbour in Neighbours)
             {
                 reflectedNeighbours.Add(neighbour.Reflect());
             }
@@ -39,7 +39,7 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
             return new NeighbourCollection
             {
                 Neighbours = reflectedNeighbours
-            }; 
+            };
         }
     }
 }

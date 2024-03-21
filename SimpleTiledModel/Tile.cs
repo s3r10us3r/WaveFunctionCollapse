@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel
+namespace WaveFunctionCollapse.SimpleTiledModel
 {
     public class Tile
     {
@@ -23,6 +23,22 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel
             RightNeighbors = rightNeighbors;
             LeftNeighbors = leftNeighbors;
             BottomNeighbors = bottomNeighbors;
+        }
+
+        public Bitmap GetImage(int n)
+        {
+            Bitmap bitmap = new Bitmap(n, n);
+
+            for (int x = 0; x < n; x++)
+            {
+                for (int y = 0; y < n; y++)
+                {
+                    Color color = Color.FromArgb(bitMap[x * n + y]);
+                    bitmap.SetPixel(x, y, color);
+                }
+            }
+
+            return bitmap;
         }
     }
 }

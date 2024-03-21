@@ -2,12 +2,14 @@
 using System.Drawing;
 using System.Xml.Serialization;
 
-namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
+namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 {
-    internal class TileModel
+    public class TileModel
     {
+        [XmlAttribute("name")]
         public string Name { get; set; }
-        public char SymmetryType { get; set; }
+        [XmlAttribute("symmetry")]
+        public string SymmetryType { get; set; }
 
         [XmlElement("Top")]
         public NeighbourCollection Top { get; set; }
@@ -19,7 +21,7 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
         public NeighbourCollection Bottom { get; set; }
 
 
-        private int[] bitmap;
+        public int[] Bitmap { get; set; }
         private int n;
 
         //rotation index represents transformations that were applied to this tile
@@ -33,45 +35,40 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
             ValidateArgs(format);
 
             PixelFormat pixelFormat = format == "png" ? PixelFormat.Format32bppArgb : PixelFormat.Format32bppRgb;
-            Bitmap preProcessedBitmap = new Bitmap(path + Name + "." + format);
+            Bitmap preProcessedBitmap = new Bitmap(path + "\\" + Name + "." + format);
             if (preProcessedBitmap.Width != n && preProcessedBitmap.Height != n)
             {
                 throw new ArgumentException($"Provided n:{n} does not match image width:{preProcessedBitmap.Width} and height:{preProcessedBitmap.Height}");
             }
             CopyBitMapToArray(preProcessedBitmap, pixelFormat);
-
             switch (SymmetryType)
             {
-                case 'X':
+                case "X":
                     Right = Top.Rotate();
                     Bottom = Right.Rotate();
                     Left = Bottom.Rotate();
                     break;
-                case 'T':
+                case "T":
                     Left = Right.Reflect();
                     break;
-                case 'I':
+                case "I":
                     Bottom = Top.Rotate().Rotate();
                     Left = Right.Reflect();
                     break;
-                case '\\':
+                case "\\":
                     Right = Top.Reflect().Rotate();
                     Bottom = Right.Reflect().Rotate();
                     Left = Bottom.Reflect().Rotate();
                     break;
-                case 'L':
-                    Left = Bottom.Reflect().Rotate();
+                case "L":
+                    Left = Bottom.Rotate();
+                    Right = Top.Rotate();
                     break;
-                case 'F':
+                case "F":
                     break;
                 default:
                     throw new ArgumentException($"Invalid symmetry type '{SymmetryType}'. Symmetry type must be one of: 'X', 'T', 'I', 'L', '\\', 'F'");
             }
-        }
-
-        public Tile GetTile()
-        {
-            return new Tile(bitmap);
         }
 
         public TileModel Rotate()
@@ -85,7 +82,7 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
                 Bottom = Right.Rotate(),
                 Left = Bottom.Rotate()
             };
-            rotatedModel.bitmap = RotateBitmap();
+            rotatedModel.Bitmap = RotateBitmap();
             rotatedModel.n = n;
 
             return rotatedModel;
@@ -102,7 +99,7 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
                 Left = Right.Reflect()
             };
 
-            reflectedModel.bitmap = ReflectBitmap();
+            reflectedModel.Bitmap = ReflectBitmap();
             reflectedModel.n = n;
 
             return reflectedModel;
@@ -129,8 +126,8 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
             BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, n, n), ImageLockMode.ReadOnly, pixelFormat);
 
             nint ptr = bmpData.Scan0;
-            this.bitmap = new int[n*n];
-            System.Runtime.InteropServices.Marshal.Copy(ptr, this.bitmap, 0, n * n);
+            Bitmap = new int[n * n];
+            System.Runtime.InteropServices.Marshal.Copy(ptr, Bitmap, 0, n * n);
         }
 
         private int[] RotateBitmap()
@@ -145,7 +142,7 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
                     int rotatedRow = col;
                     int rotatedCol = n - 1 - row;
                     int rotatedIndex = rotatedRow * n + rotatedCol;
-                    rotatedBitmap[rotatedIndex] = bitmap[index];
+                    rotatedBitmap[rotatedIndex] = Bitmap[index];
                 }
             }
 
@@ -160,7 +157,7 @@ namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
             {
                 for (int col = 0; col < n; col++)
                 {
-                    reflectedBitmap[row * n + (n - 1 - col)] = bitmap[row * n + col];
+                    reflectedBitmap[row * n + (n - 1 - col)] = Bitmap[row * n + col];
                 }
             }
 

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace WaveFunctionCollapse.WaveFunctionCollapse.SimpleTiledModel.XMLModels
+namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 {
-    internal class Neighbour
+    public class Neighbour
     {
+        [XmlAttribute("name")]
         public string Name { get; set; }
         //transformation index indicates which transformations were applied to a tile by default the metadata provides neighbors for unrotated tiles
         //indices 0 - 3 represent image rotated by 0, 90, 180, 270 degrees and indices 4 - 7 correspond to same rotations but with reflection along y-axis applied
+        [XmlAttribute("tID")]
         public int TransformationIndex { get; set; }
 
         public Neighbour Rotate()
