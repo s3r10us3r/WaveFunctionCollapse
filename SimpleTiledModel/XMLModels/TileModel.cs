@@ -6,6 +6,9 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 {
     public class TileModel
     {
+        //this here is for later resolving symmetry types in neighbours using InitNeighbours
+        public static Dictionary<string, string> nameSymmetry = new Dictionary<string, string>();
+
         [XmlAttribute("name")]
         public string Name { get; set; }
         [XmlAttribute("symmetry")]
@@ -20,20 +23,21 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
         [XmlElement("Bottom")]
         public NeighbourCollection Bottom { get; set; }
 
-
         public int[] Bitmap { get; set; }
+        //image height and width
         private int n;
 
         //rotation index represents transformations that were applied to this tile
         //indices 0-3 represents rotated tile (0 - not rotated, 1 - rotated by 90 deg., 2 - rotated by 180 deg. 3 - rotated by 270-deg) indices 4 - 7 represent same rotations but applied to a tile reflected along y-axis
         private int rotationIndex = 0;
 
-        //n is image height and width
+        //this method copies the bitmap from path to a 1d array and sets up unprovided neighbour collections accoridng to its symmetry type also fills the nameSymmetry dictionary
         public void Init(string path, string format, int n)
         {
             this.n = n;
             ValidateArgs(format);
 
+            nameSymmetry[Name] = SymmetryType;
             PixelFormat pixelFormat = format == "png" ? PixelFormat.Format32bppArgb : PixelFormat.Format32bppRgb;
             Bitmap preProcessedBitmap = new Bitmap(path + "\\" + Name + "." + format);
             if (preProcessedBitmap.Width != n && preProcessedBitmap.Height != n)
@@ -71,6 +75,15 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
             }
         }
 
+        //this has to be done after the nameSymmetry dictionary has been filled up
+        public void InitNeighbours()
+        {
+            Top.Init(nameSymmetry, NeighbourCollection.Side.TOP);
+            Right.Init(nameSymmetry, NeighbourCollection.Side.RIGHT);
+            Bottom.Init(nameSymmetry, NeighbourCollection.Side.BOTTOM);
+            Left.Init(nameSymmetry, NeighbourCollection.Side.LEFT);
+        }
+
         public TileModel Rotate()
         {
             //we only account for symmetry type for the untrasformed tile so we do not have to pass the symetry type any further
@@ -84,6 +97,7 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
             };
             rotatedModel.Bitmap = RotateBitmap();
             rotatedModel.n = n;
+            rotatedModel.rotationIndex = rotationIndex % 4 == 3 ? rotationIndex - 3 : rotationIndex + 1;
 
             return rotatedModel;
         }
@@ -101,8 +115,14 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 
             reflectedModel.Bitmap = ReflectBitmap();
             reflectedModel.n = n;
+            reflectedModel.rotationIndex = rotationIndex > 4 ? rotationIndex - 4 : rotationIndex + 4;
 
             return reflectedModel;
+        }
+
+        public int GetTransformationID()
+        {
+            return rotationIndex;
         }
 
         private void ValidateArgs(string format)

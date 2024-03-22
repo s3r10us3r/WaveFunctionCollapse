@@ -14,9 +14,6 @@ namespace WaveFunctionCollapse.SimpleTiledModel
         {
             string xmlFilePath = Path.Combine(tileSetPath, tileSetName + ".xml");
             TileSetModel tileSetModel = TileSetModel.DeserialeFromXML(xmlFilePath);
-
-            List<Tile> tiles = tileSetModel.MakeTiles(tileSetPath);
-            
         }
     }
 }

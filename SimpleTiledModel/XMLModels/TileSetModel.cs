@@ -16,8 +16,14 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
         [XmlAttribute("n")]
         public int N { get; set; }
 
-        private Dictionary<string, int[]> idDict = new Dictionary<string, int[]>();
-        private int idCounter = 0;
+        private Dictionary<string, Tile[]> tileDict;
+        private Dictionary<string, TileModel[]> modelDict;
+
+        public Dictionary<string, Tile[]> GetDict()
+        {
+            return tileDict;
+        }
+
 
         public static TileSetModel DeserialeFromXML(string path)
         {
@@ -36,160 +42,72 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
 
         public List<Tile> MakeTiles(string path)
         {
-            idCounter = 0;
-            List<TileModel> tiles = new List<TileModel>();
-            idDict = new Dictionary<string, int[]>();
+            tileDict = new Dictionary<string, Tile[]>();
+            modelDict = new Dictionary<string, TileModel[]>();
 
             foreach (TileModel tileModel in Tiles)
             {
                 tileModel.Init(path, Format, N);
-                idDict.Add(tileModel.Name, [0, 1, 2, 3, 4, 5, 6, 7]);
             }
-
-            List<Tile> result = new List<Tile>();
 
             foreach (TileModel tileModel in Tiles)
             {
-                TileModel rotatedTile = tileModel;
-                for(int i = 0; i < 4; i++)
+                tileModel.InitNeighbours();
+                Tile[] transformations = new Tile[8];
+                TileModel[] tileModels = new TileModel[8];
+
+                tileModels[0] = tileModel;
+                transformations[0] = new Tile(tileModel);
+
+                TileModel transformedTile = tileModel.Rotate();
+                for (int i = 1; i < 4; i++)
                 {
-                    result.Add(MakeTile(rotatedTile));
-                    rotatedTile = rotatedTile.Rotate();
+                    transformations[i] = new Tile(transformedTile);
+                    tileModels[i] = transformedTile;
+                    transformedTile = transformedTile.Rotate();
                 }
-                TileModel reflectedTile = tileModel.Reflect();
-                for(int i = 0; i < 4; i++)
+                transformedTile = tileModel.Reflect();
+                for (int i = 4; i < 8; i++)
                 {
-                    result.Add(MakeTile(reflectedTile));
-                    reflectedTile = reflectedTile.Rotate();
+                    transformations[i] = new Tile(transformedTile);
+                    tileModels[i] = transformedTile;
+                    transformedTile = transformedTile.Rotate();
                 }
+                tileDict.Add(tileModel.Name, transformations);
+                modelDict.Add(tileModel.Name, tileModels);
             }
 
+            List<Tile> result = new List<Tile>();
+            foreach (string key in tileDict.Keys)
+            {
+                for(int i  = 0; i < 8; i++)
+                {
+                    MakeNeighbours(modelDict[key][i], tileDict[key][i]);
+                    result.Add(tileDict[key][i]);
+                }
+            }
+            
             return result;
         }
 
-        private Tile MakeTile(TileModel tileModel)
+        private void MakeNeighbours(TileModel model, Tile tile)
         {
-            HashSet<int> topNeighbours = new();
-            foreach (Neighbour neighbour in tileModel.Top.Neighbours)
-            {
-                topNeighbours.Add(idDict[neighbour.Name][neighbour.TransformationIndex]);
-            }
-
-            HashSet<int> rightNeighbours = new();
-            foreach (Neighbour neighbour in tileModel.Right.Neighbours)
-            {
-                rightNeighbours.Add(idDict[neighbour.Name][neighbour.TransformationIndex]);
-            }
-
-            HashSet<int> bottomNeighbours = new();
-            foreach (Neighbour neighbour in tileModel.Bottom.Neighbours)
-            {
-                bottomNeighbours.Add(idDict[neighbour.Name][neighbour.TransformationIndex]);
-            }
-
-            HashSet<int> leftNeighbours = new();
-            foreach (Neighbour neighbour in tileModel.Left.Neighbours)
-            {
-                leftNeighbours.Add(idDict[neighbour.Name][neighbour.TransformationIndex]);
-            }
-
-            return new Tile(tileModel.Bitmap, topNeighbours, rightNeighbours, leftNeighbours, bottomNeighbours);
+            tile.TopNeighbors = ConvertNeighbours(model.Top);
+            tile.RightNeighbors = ConvertNeighbours(model.Right);
+            tile.BottomNeighbors = ConvertNeighbours(model.Bottom);
+            tile.LeftNeighbors = ConvertNeighbours(model.Left);
         }
 
-        private int[] SetUpRotations(string path, List<TileModel> tiles, TileModel tileModel)
+        private HashSet<Tile> ConvertNeighbours(NeighbourCollection neighbourCollection)
         {
-            tileModel.Init(path, Format, N);
-            int[] rotations = new int[8];
+            HashSet<Tile> result = new HashSet<Tile>();
 
-            rotations[0] = idCounter++;
-            tiles.Add(tileModel);
-            switch (tileModel.SymmetryType)
+            foreach(Neighbour neighbour in neighbourCollection.Neighbours)
             {
-                case "X":
-                    for (int i = 1; i < 8; i++)
-                    {
-                        rotations[i] = rotations[0];
-                    }
-                    break;
-                case "I":
-                    {
-                        TileModel rotatedTile = tileModel.Rotate();
-                        tiles.Add(rotatedTile);
-                        rotations[1] = idCounter++;
-                        for (int i = 3; i < 8; i += 2)
-                        {
-                            rotations[i] = rotations[1];
-                        }
-                        for (int i = 2; i < 8; i += 2)
-                        {
-                            rotations[i] = rotations[0];
-                        }
-                    }
-                    break;
-                case "T":
-                    {
-                        TileModel rotatedTile = tileModel;
-                        rotations[4] = rotations[0];
-                        for (int i = 1; i < 4; i++)
-                        {
-                            rotatedTile = tileModel.Rotate();
-                            rotations[i] = idCounter++;
-                            rotations[i + 4] = idCounter;
-                            tiles.Add(rotatedTile);
-                        }
-                    }
-                    break;
-                case "L":
-                    {
-                        TileModel rotatedTile = tileModel;
-                        rotations[5] = rotations[0];
-                        for (int i = 1; i < 4; i++)
-                        {
-                            rotatedTile = tileModel.Rotate();
-                            rotations[i] = idCounter++;
-                            rotations[(i + 1) % 4 + 4] = idCounter;
-                            tiles.Add(rotatedTile);
-                        }
-                    }
-                    break;
-                case "\\":
-                    {
-                        TileModel rotatedTile = tileModel.Rotate();
-                        tiles.Add(rotatedTile);
-                        rotations[1] = idCounter++;
-
-                        for (int i = 2; i < 4; i++)
-                        {
-                            rotations[i] = rotations[i % 2];
-                        }
-
-                        for (int i = 4; i < 8; i++)
-                        {
-                            rotations[i] = rotations[1 - i % 2];
-                        }
-                    }
-                    break;
-                case "F":
-                    {
-                        TileModel rotatedTile = tileModel;
-                        for (int i = 1; i < 4; i++)
-                        {
-                            rotatedTile = rotatedTile.Rotate();
-                            rotations[i] = idCounter++;
-                            tiles.Add(rotatedTile);
-                        }
-                        rotatedTile = tileModel.Reflect();
-                        for (int i = 4; i < 8; i++)
-                        {
-                            rotations[i] = idCounter++;
-                            tiles.Add(rotatedTile);
-                            rotatedTile = rotatedTile.Rotate();
-                        }
-                    }
-                    break;
+                result.Add(tileDict[neighbour.Name][neighbour.TransformationIndex]);
             }
 
-            return rotations;
+            return result;
         }
     }
 }

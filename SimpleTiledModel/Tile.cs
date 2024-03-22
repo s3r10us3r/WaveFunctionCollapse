@@ -4,29 +4,31 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WaveFunctionCollapse.SimpleTiledModel.XMLModels;
 
 namespace WaveFunctionCollapse.SimpleTiledModel
 {
     public class Tile
     {
-        public HashSet<int> TopNeighbors { get; set; }
-        public HashSet<int> RightNeighbors { get; set; }
-        public HashSet<int> BottomNeighbors { get; set; }
-        public HashSet<int> LeftNeighbors { get; set; }
+        public HashSet<Tile> TopNeighbors { get; set; }
+        public HashSet<Tile> RightNeighbors { get; set; }
+        public HashSet<Tile> BottomNeighbors { get; set; }
+        public HashSet<Tile> LeftNeighbors { get; set; }
 
         public readonly int[] bitMap;
 
-        public Tile(int[] bitMap, HashSet<int> topNeighbors, HashSet<int> rightNeighbors, HashSet<int> leftNeighbors, HashSet<int> bottomNeighbors)
+        public readonly int tID;
+        public readonly string name;
+
+        public Tile(TileModel tileModel)
         {
-            this.bitMap = bitMap;
-            TopNeighbors = topNeighbors;
-            RightNeighbors = rightNeighbors;
-            LeftNeighbors = leftNeighbors;
-            BottomNeighbors = bottomNeighbors;
+            name = tileModel.Name;
+            tID = tileModel.GetTransformationID();
+            bitMap = tileModel.Bitmap;
         }
 
         public Bitmap GetImage(int n)
-        {
+        { 
             Bitmap bitmap = new Bitmap(n, n);
 
             for (int x = 0; x < n; x++)
@@ -34,11 +36,26 @@ namespace WaveFunctionCollapse.SimpleTiledModel
                 for (int y = 0; y < n; y++)
                 {
                     Color color = Color.FromArgb(bitMap[x * n + y]);
-                    bitmap.SetPixel(x, y, color);
+                    bitmap.SetPixel(y, x, color);
                 }
             }
 
             return bitmap;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(name, tID);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj is null || obj is not Tile)
+            {
+                return false;
+            }
+            Tile tile = (Tile)obj;
+            return tile.name == name && tile.tID == tID;
         }
     }
 }
