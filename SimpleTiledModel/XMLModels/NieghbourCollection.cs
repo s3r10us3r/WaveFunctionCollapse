@@ -43,6 +43,7 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
                             }
                         }
                         break;
+
                     case "I":
                         {
                             Neighbour rotatedNeighbour = neighbour.Rotate().Rotate();
@@ -51,24 +52,45 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
                             newNeighbours.Add(rotatedNeighbour.Reflect());
                         }
                         break;
+
                     case "T":
                         {
-                            if ((neighbour.TransformationIndex % 2 == 0 && (side == Side.RIGHT || side == Side.LEFT)) || neighbour.TransformationIndex % 2 == 0 && (side == Side.TOP || side == Side.BOTTOM))
+                            //this means that the symmetry axis is paraller to the edge
+                            if ((neighbour.TransformationIndex % 2 == 0 && (side == Side.RIGHT || side == Side.LEFT)) || (neighbour.TransformationIndex % 2 == 1 && (side == Side.TOP || side == Side.BOTTOM)))
                             {
                                 Neighbour rotatedNeighbour = neighbour.Rotate().Rotate();
                                 newNeighbours.Add(rotatedNeighbour);
                                 newNeighbours.Add(neighbour.Reflect());
                                 newNeighbours.Add(rotatedNeighbour.Reflect());
                             }
-                            break;
+                            //this means that the symmetry axis is perpendicular to the edge
+                            else
+                            {
+                                Neighbour relfectedNeighbour = neighbour.Reflect();
+                                newNeighbours.Add(relfectedNeighbour);
+                            }
                         }
+                        break;
+
                     case "L":
                         {
-                            int[] pointySide = {1, 2, 6, 7};
-                            int[] flatSide = { 0, 3, 4, 5 };
-                            int[] actualSide = pointySide.Contains(neighbour.TransformationIndex) ? pointySide : flatSide;
+                            //bottomPoint means that the pointy side of 'L' is facing this direction for example 'L' without any transformation transformationID 0 is in rightPoint and topPoint
+                            int[] bottomPoint = [1, 2, 6, 7];
+                            int[] leftPoint = [2, 3, 4, 7];
+                            int[] topPoint = [0, 3, 4, 5];
+                            int[] rightPoint = [0, 1, 5, 6];
 
-                            foreach(int i in actualSide)
+                            //FIXIT: IT'S UGLY
+                            int[] sideToCopy = (side == Side.LEFT || side == Side.RIGHT) ? 
+                                               (leftPoint.Contains(neighbour.TransformationIndex)) ?
+                                                   leftPoint
+                                                   : rightPoint 
+                                               : (topPoint.Contains(neighbour.TransformationIndex)) ?
+                                                   topPoint
+                                                   : bottomPoint;
+
+
+                            foreach (int i in sideToCopy)
                             {
                                 if (neighbour.TransformationIndex != i)
                                 {
@@ -81,6 +103,7 @@ namespace WaveFunctionCollapse.SimpleTiledModel.XMLModels
                             }
                         }
                         break;
+
                     case "\\":
                         {
                             int[] facingLeft = {0, 2, 5, 7};
