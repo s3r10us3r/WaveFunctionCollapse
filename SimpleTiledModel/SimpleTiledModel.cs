@@ -112,12 +112,19 @@ namespace WaveFunctionCollapse.SimpleTiledModel
                 {
                     for (int y = 0; y < height; y++)
                     {
-
+                        if (image[x,y] is null)
+                        {
+                            g.DrawRectangle(Pens.Black, new Rectangle(x * n, y * n, n, n));
+                        }
+                        else
+                        {
+                            g.DrawImage(image[x, y].GetImage(n), x * n, y * n);
+                        }
                     }
                 }
             }
 
-            throw new NotImplementedException();
+            return bitmap;
         }
 
         private void Observe(Tile chosenState, int x, int y)
