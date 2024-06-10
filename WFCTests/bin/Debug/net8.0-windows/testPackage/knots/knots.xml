@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TileSet format="png" n="10">
+	<Tile name="corner" symmetry="L" >
+		<Top>
+			<Neighbour name="cross" tID="0"/>
+			<Neighbour name="t" tID="0"/>
+			<Neighbour name="t" tID="1"/>
+			<Neighbour name="line" tID="1"/>
+			<Neighbour name="corner" tID="1"/>
+			<Neighbour name="corner" tID="2"/>
+		</Top>
+		<Bottom>
+			<Neighbour name="line" tID="0"/>
+			<Neighbour name="empty" tID="0"/>
+			<Neighbour name="corner" tID="1"/>
+			<Neighbour name="corner" tID="2"/>
+			<Neighbour name="t" tID="0"/>
+		</Bottom>
+	</Tile>
+
+	<Tile name="cross" symmetry="X">
+		<Top>
+			<Neighbour name="cross" tID="0"/>
+			<Neighbour name="line" tID="1"/>
+			<Neighbour name="t" tID="0"/>
+			<Neighbour name="t" tID="1"/>
+			<Neighbour name="corner" tID="1"/>
+			<Neighbour name="corner" tID="2"/>
+		</Top>
+	</Tile>
+
+	<Tile name="line" symmetry="I">
+		<Top>
+			<Neighbour name="empty" tID="0"/>
+			<Neighbour name="t" tID="2"/>
+			<Neighbour name="corner" tID="0"/>
+			<Neighbour name="corner" tID="3"/>
+			<Neighbour name="line" tID="0"/>
+		</Top>
+
+		<Right>
+			<Neighbour name="line" tID="0"/>
+			<Neighbour name="corner" tID="2"/>
+			<Neighbour name="corner" tID="3"/>
+			<Neighbour name="t" tID="0"/>
+			<Neighbour name="t" tID="1"/>
+			<Neighbour name="cross" tID="0"/>
+		</Right>
+	</Tile>
+
+	<Tile name="empty" symmetry="X">
+		<Top>
+			<Neighbour name="t" tID="2"/>
+			<Neighbour name="corner" tID="0"/>
+			<Neighbour name="corner" tID="3"/>
+			<Neighbour name="empty" tID="0"/>
+			<Neighbour name="line" tID="0"/>
+		</Top>
+	</Tile>
+	
+	<Tile name="t" symmetry="T">
+		<Top>
+			<Neighbour name="corner" tID="0"/>
+			<Neighbour name="corner" tID="3"/>
+			<Neighbour name="t" tID="2"/>
+			<Neighbour name="empty" tID="0"/>
+			<Neighbour name="line" tID="0"/>
+		</Top>
+		<Right>
+			<Neighbour name="cross" tID="0"/>
+			<Neighbour name="t" tID="0"/>
+			<Neighbour name="t" tID="1"/>
+			<Neighbour name="corner" tID="2"/>
+			<Neighbour name="corner" tID="3"/>
+			<Neighbour name="line" tID="0"/>
+		</Right>
+		<Bottom>
+			<Neighbour name="cross" tID="0"/>
+			<Neighbour name="t" tID="1"/>
+			<Neighbour name="t" tID="2"/>
+			<Neighbour name="corner" tID="0"/>
+			<Neighbour name="corner" tID="3"/>
+			<Neighbour name="line" tID="1"/>
+		</Bottom>
+	</Tile>
+</TileSet>

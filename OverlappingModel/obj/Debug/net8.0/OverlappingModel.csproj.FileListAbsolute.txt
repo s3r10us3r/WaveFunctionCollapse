@@ -1,0 +1,15 @@
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.csproj.AssemblyReference.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.AssemblyInfoInputs.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.AssemblyInfo.cs
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.csproj.CoreCompileInputs.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\bin\Debug\net8.0\OverlappingModel.deps.json
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\bin\Debug\net8.0\OverlappingModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\bin\Debug\net8.0\OverlappingModel.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\Overlapp.AA2BA625.Up2Date
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\refint\OverlappingModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\OverlappingModel.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\obj\Debug\net8.0\ref\OverlappingModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModel\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.pdb

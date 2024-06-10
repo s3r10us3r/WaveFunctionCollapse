@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "FfLRxJpOzUBwiswSzYUxpIiACsFC7VovycAlu1zp82FR8sr0Pa2paqAnlFnb8NzPkV2W74Vi+NeoaPovpG8tmw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\SimpleTiledModel\\SimpleModel.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jedyn\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\jedyn\\.nuget\\packages\\system.drawing.common\\8.0.6\\system.drawing.common.8.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

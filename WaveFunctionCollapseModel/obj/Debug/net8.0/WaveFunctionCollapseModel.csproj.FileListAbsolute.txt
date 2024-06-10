@@ -1,0 +1,12 @@
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\bin\Debug\net8.0\WaveFunctionCollapseModel.deps.json
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\bin\Debug\net8.0\WaveFunctionCollapseModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\bin\Debug\net8.0\WaveFunctionCollapseModel.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.csproj.AssemblyReference.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.AssemblyInfoInputs.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.AssemblyInfo.cs
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.csproj.CoreCompileInputs.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\refint\WaveFunctionCollapseModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\WaveFunctionCollapseModel.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapseModel\obj\Debug\net8.0\ref\WaveFunctionCollapseModel.dll

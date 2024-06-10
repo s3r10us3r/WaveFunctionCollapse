@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "2cNaDJi+BClLeYkorf7xHznDPYfAYxzMjhi9U0nMmHNN8JWuAsSeUzKEw8bAjeKMJhho+f+C1D4YYqJ9VMEpKQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jedyn\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\jedyn\\.nuget\\packages\\system.drawing.common\\8.0.6\\system.drawing.common.8.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

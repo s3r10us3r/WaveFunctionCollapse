@@ -1,0 +1,15 @@
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\bin\Debug\net8.0\SimpleModel.deps.json
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\bin\Debug\net8.0\SimpleModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\bin\Debug\net8.0\SimpleModel.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.csproj.AssemblyReference.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.AssemblyInfoInputs.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.AssemblyInfo.cs
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.csproj.CoreCompileInputs.cache
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleMo.0ECEC0B7.Up2Date
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\refint\SimpleModel.dll
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\SimpleModel.pdb
+C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\SimpleTiledModel\obj\Debug\net8.0\ref\SimpleModel.dll

@@ -1,0 +1,144 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj",
+        "projectName": "OverlappingModel",
+        "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj",
+        "packagesPath": "C:\\Users\\jedyn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\jedyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj": {
+                "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
+        "projectName": "WaveFunctionCollapse.Interfaces",
+        "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
+        "packagesPath": "C:\\Users\\jedyn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\jedyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

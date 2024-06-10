@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaveFunctionCollapse", "WaveFunctionCollapse.csproj", "{21CC2B07-85C5-45E1-B052-99A348C178C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFCTests", "..\WFCTests\WFCTests.csproj", "{0B2BC083-81EC-438D-BE16-E39573E9F158}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleModel", "..\SimpleTiledModel\SimpleModel.csproj", "{C582B672-9B8D-4004-91EA-1BEB18185763}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverlappingModel", "..\OverlappingModel\OverlappingModel.csproj", "{34CE9C07-ACA4-4F06-921C-FACBDDB4A696}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverlappingModelTest", "..\OverlappingModelTest\OverlappingModelTest.csproj", "{FE5C5FB4-0631-4C90-9460-0B16AF057956}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaveFunctionCollapse.Interfaces", "..\WaveFunctionCollapse.Interfaces\WaveFunctionCollapse.Interfaces.csproj", "{CF13C52F-4CAE-49EC-B560-C4DB75E911EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CC2B07-85C5-45E1-B052-99A348C178C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B2BC083-81EC-438D-BE16-E39573E9F158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B2BC083-81EC-438D-BE16-E39573E9F158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B2BC083-81EC-438D-BE16-E39573E9F158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B2BC083-81EC-438D-BE16-E39573E9F158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C582B672-9B8D-4004-91EA-1BEB18185763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C582B672-9B8D-4004-91EA-1BEB18185763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C582B672-9B8D-4004-91EA-1BEB18185763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C582B672-9B8D-4004-91EA-1BEB18185763}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34CE9C07-ACA4-4F06-921C-FACBDDB4A696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34CE9C07-ACA4-4F06-921C-FACBDDB4A696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34CE9C07-ACA4-4F06-921C-FACBDDB4A696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34CE9C07-ACA4-4F06-921C-FACBDDB4A696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5C5FB4-0631-4C90-9460-0B16AF057956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5C5FB4-0631-4C90-9460-0B16AF057956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5C5FB4-0631-4C90-9460-0B16AF057956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5C5FB4-0631-4C90-9460-0B16AF057956}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF13C52F-4CAE-49EC-B560-C4DB75E911EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF13C52F-4CAE-49EC-B560-C4DB75E911EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF13C52F-4CAE-49EC-B560-C4DB75E911EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF13C52F-4CAE-49EC-B560-C4DB75E911EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DF494CE-9D48-47B4-8517-A8E1457E63CD}
+	EndGlobalSection
+EndGlobal
