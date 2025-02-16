@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OverlappingModel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22dea2e7c4c406425c486b76d668c68a197a481d")]
 [assembly: System.Reflection.AssemblyProductAttribute("OverlappingModel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OverlappingModel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

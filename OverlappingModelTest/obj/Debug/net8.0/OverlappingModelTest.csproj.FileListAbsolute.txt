@@ -112,3 +112,14 @@ C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingMode
 C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModelTest\bin\Debug\net8.0\samples\Platformer.png
 C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModelTest\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.dll
 C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\OverlappingModelTest\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.pdb
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\bin\Debug\net8.0\CoverletSourceRootsMapping_OverlappingModelTest
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.csproj.AssemblyReference.cache
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.AssemblyInfoInputs.cache
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.AssemblyInfo.cs
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.csproj.CoreCompileInputs.cache
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.sourcelink.json
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.dll
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\refint\OverlappingModelTest.dll
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\obj\Debug\net8.0\OverlappingModelTest.pdb
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\OverlappingModelTest\bin\Debug\net8.0\.msCoverageSourceRootsMapping_OverlappingModelTest

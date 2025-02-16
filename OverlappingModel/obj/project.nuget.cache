@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gXHgPFz//i7+qweTkShfkhQGPmrH/7012u+c9GYvug5EyLjWQ2xR0PyttafHNAziLWjeXQ7sSKvg1aH0kYlhKw==",
+  "dgSpecHash": "L9yka+NdMpY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj",
+  "projectFilePath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\OverlappingModel.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jedyn\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
-    "C:\\Users\\jedyn\\.nuget\\packages\\system.drawing.common\\8.0.6\\system.drawing.common.8.0.6.nupkg.sha512"
+    "C:\\Users\\jedyn\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.2\\microsoft.win32.systemevents.9.0.2.nupkg.sha512",
+    "C:\\Users\\jedyn\\.nuget\\packages\\system.drawing.common\\9.0.2\\system.drawing.common.9.0.2.nupkg.sha512"
   ],
   "logs": []
 }

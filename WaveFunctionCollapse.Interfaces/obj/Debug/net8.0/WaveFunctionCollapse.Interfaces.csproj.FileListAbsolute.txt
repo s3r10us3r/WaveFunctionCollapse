@@ -10,3 +10,16 @@ C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCol
 C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\refint\WaveFunctionCollapse.Interfaces.dll
 C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.pdb
 C:\Users\jedyn\OneDrive\Pulpit\Projekt indywidualny\repozytorium\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\ref\WaveFunctionCollapse.Interfaces.dll
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.deps.json
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.dll
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\bin\Debug\net8.0\WaveFunctionCollapse.Interfaces.pdb
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.csproj.AssemblyReference.cache
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.AssemblyInfoInputs.cache
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.AssemblyInfo.cs
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.csproj.CoreCompileInputs.cache
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.sourcelink.json
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.dll
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\refint\WaveFunctionCollapse.Interfaces.dll
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\WaveFunctionCollapse.Interfaces.pdb
+C:\Users\jedyn\Source\Repos\WaveFunctionCollapse\WaveFunctionCollapse.Interfaces\obj\Debug\net8.0\ref\WaveFunctionCollapse.Interfaces.dll

@@ -9,14 +9,10 @@ namespace OverlappingModel
         
         public int CollapsesLeft => wave.CollapsesLeft;
         private Wave wave;
-        private int width;
-        private int height;
         
         internal OverlappingModel(int n, Bitmap bitmap, int width, int height, bool rotationsEnabled, bool reflectionsEnabled, bool lockTop, bool lockBottom, bool lockLeft, bool lockRight, Random rand)
         {
-            this.width = width;
-            this.height = height;
-            ImageAnalyzer analyzer = new ImageAnalyzer(bitmap, rotationsEnabled, reflectionsEnabled, n);
+            var analyzer = new ImageAnalyzer(bitmap, rotationsEnabled, reflectionsEnabled, n);
             wave = new Wave(width, height, n, rand, analyzer.Analyze(), lockTop, lockBottom, lockRight, lockLeft);
         }
 

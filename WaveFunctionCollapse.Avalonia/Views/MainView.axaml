@@ -1,0 +1,106 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:WaveFunctionCollapse.Avalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="675"
+             x:Class="WaveFunctionCollapse.Avalonia.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+	
+	<Border Padding="10">
+		<Grid HorizontalAlignment="Center" DragDrop.AllowDrop="True">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="150"/>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="150"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+			</Grid.RowDefinitions>
+
+			<!--Control row-->
+			<StackPanel Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+				<Button Background="Transparent" IsEnabled="{Binding HasStarted}" Command="{Binding ResetCommand}">
+					<Svg Path="/Assets/rotate-right-solid.svg"></Svg>
+				</Button>
+				<Button Background="Transparent" Command="{Binding BeginCommand}">
+					<Panel>
+						<Svg Path="/Assets/play-solid.svg" IsVisible="{Binding !IsStarted}"></Svg>
+						<Svg Path="/Assets/pause-solid.svg" IsVisible="{Binding IsStarted}"></Svg>
+					</Panel>
+				</Button>
+			</StackPanel>
+
+			<!--Settings row-->
+			<StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+				<StackPanel Orientation="Horizontal">
+					<Label>N: </Label>
+					<NumericUpDown IsEnabled="{Binding !HasStarted}" Value="{Binding N}" ShowButtonSpinner="False" TextAlignment="Center"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label>Seed: </Label>
+					<NumericUpDown IsEnabled="{Binding !HasStarted}" Width="100" Value="{Binding Seed}" ShowButtonSpinner="False" TextAlignment="Center"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label>Rotations:</Label>
+					<ToggleSwitch IsEnabled="{Binding !HasStarted}" IsChecked="{Binding RotationsEnabled}"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label>Reflections:</Label>
+					<ToggleSwitch IsEnabled="{Binding !HasStarted}" IsChecked="{Binding ReflectionsEnabled}"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label>Width: </Label>
+					<NumericUpDown IsEnabled="{Binding !HasStarted}" Width="50" Value="{Binding Width}" ShowButtonSpinner="False" TextAlignment="Center"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Label>Height: </Label>
+					<NumericUpDown IsEnabled="{Binding !HasStarted}" Width="50" Value="{Binding Height}" ShowButtonSpinner="False" TextAlignment="Center"/>
+				</StackPanel>
+				<Label>Locks:</Label>
+				<CheckBox Content="Top" IsEnabled="{Binding !HasStarted}" IsChecked="{Binding LockTop}"/>
+				<CheckBox Content="Bottom" IsEnabled="{Binding !HasStarted}" IsChecked="{Binding LockBottom}"/>
+				<CheckBox Content="Left" IsEnabled="{Binding !HasStarted}" IsChecked="{Binding LockLeft}"/>
+				<CheckBox Content="Right" IsEnabled="{Binding !HasStarted}" IsChecked="{Binding LockRight}"/>
+			</StackPanel>
+
+			<!--Image choosing thingy-->
+			<Border
+				Grid.Column="0"
+				Grid.Row="0"
+				BorderBrush="Black"
+				BorderThickness="2"
+				VerticalAlignment="Bottom"
+				Height="200"
+				PointerPressed="Border_PointerPressed"
+				DragDrop.AllowDrop="True"
+				DragDrop.DragOver="Border_DragOver"
+				DragDrop.Drop="Border_Drop"
+				Background="Transparent">
+				<Panel>
+					<TextBlock Text="Click here to choose an image!" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" IsVisible="{Binding !IsImageChosen}"/>
+					<Image Source="{Binding InputPreview}" IsVisible="{Binding IsImageChosen}" RenderOptions.BitmapInterpolationMode="None"/>
+				</Panel>
+			</Border>
+			<!--Main Image thingy-->
+			<Border
+				Grid.Column="1"
+				Grid.Row="0"
+				BorderBrush="Black"
+				BorderThickness="2"
+				Margin="30"
+				VerticalAlignment="Stretch"
+				HorizontalAlignment="Stretch"
+				>
+				<Image Source="{Binding OutputPreview}" RenderOptions.BitmapInterpolationMode="None"/>
+			</Border>
+		</Grid>
+	</Border>
+</UserControl>

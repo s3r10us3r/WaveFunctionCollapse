@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModelTest\\OverlappingModelTest.csproj": {}
+    "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModelTest\\OverlappingModelTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModelTest\\OverlappingModelTest.csproj": {
+    "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModelTest\\OverlappingModelTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModelTest\\OverlappingModelTest.csproj",
+        "projectUniqueName": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModelTest\\OverlappingModelTest.csproj",
         "projectName": "OverlappingModelTest",
-        "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModelTest\\OverlappingModelTest.csproj",
+        "projectPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModelTest\\OverlappingModelTest.csproj",
         "packagesPath": "C:\\Users\\jedyn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModelTest\\obj\\",
+        "outputPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModelTest\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jedyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj": {
-                "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj"
+              "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\OverlappingModel.csproj": {
+                "projectPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\OverlappingModel.csproj"
               }
             }
           }
@@ -43,7 +47,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -51,23 +56,27 @@
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[17.8.0, )"
+              "version": "[17.13.0, )"
             },
             "NUnit": {
               "target": "Package",
-              "version": "[3.14.0, )"
+              "version": "[4.3.2, )"
             },
             "NUnit.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[3.9.0, )"
+              "version": "[4.6.0, )"
             },
             "NUnit3TestAdapter": {
               "target": "Package",
-              "version": "[4.5.0, )"
+              "version": "[5.0.0, )"
             },
             "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.4, )"
             }
           },
           "imports": [
@@ -86,21 +95,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj": {
+    "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\OverlappingModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj",
+        "projectUniqueName": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\OverlappingModel.csproj",
         "projectName": "OverlappingModel",
-        "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\OverlappingModel.csproj",
+        "projectPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\OverlappingModel.csproj",
         "packagesPath": "C:\\Users\\jedyn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\OverlappingModel\\obj\\",
+        "outputPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\OverlappingModel\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jedyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -114,8 +127,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj": {
-                "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj"
+              "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj": {
+                "projectPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj"
               }
             }
           }
@@ -129,7 +142,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -137,7 +151,7 @@
           "dependencies": {
             "System.Drawing.Common": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[9.0.2, )"
             }
           },
           "imports": [
@@ -156,21 +170,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj": {
+    "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
+        "projectUniqueName": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
         "projectName": "WaveFunctionCollapse.Interfaces",
-        "projectPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
+        "projectPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\WaveFunctionCollapse.Interfaces\\WaveFunctionCollapse.Interfaces.csproj",
         "packagesPath": "C:\\Users\\jedyn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jedyn\\OneDrive\\Pulpit\\Projekt indywidualny\\repozytorium\\WaveFunctionCollapse.Interfaces\\obj\\",
+        "outputPath": "C:\\Users\\jedyn\\source\\repos\\WaveFunctionCollapse\\WaveFunctionCollapse.Interfaces\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\jedyn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -195,7 +213,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -203,7 +222,7 @@
           "dependencies": {
             "System.Drawing.Common": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[9.0.2, )"
             }
           },
           "imports": [
@@ -222,7 +241,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
