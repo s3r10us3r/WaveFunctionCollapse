@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using SkiaSharp;
 using WaveFunctionCollapse.Interfaces.Errors;
 
 namespace OverlappingModel
@@ -6,15 +6,15 @@ namespace OverlappingModel
     internal class Wave
     {
         public int CollapsesLeft { get; private set; }
-        public Bitmap Image
+        public SKBitmap Image
         {
             get
             {
-                var bitmap = new Bitmap(width, height);
+                var bitmap = new SKBitmap(width, height);
                 for (int x = 0; x < width; x++)
                 for (int y = 0; y < height; y++)
                 {
-                    Color color = GetPixel(x, y);
+                    var color = GetPixel(x, y);
                     bitmap.SetPixel(x, y, color);
                 }
                 return bitmap;
@@ -170,7 +170,7 @@ namespace OverlappingModel
             }
         }
 
-        public Color GetPixel(int x, int y)
+        public SKColor GetPixel(int x, int y)
         {
             int rSum = 0, gSum = 0, bSum = 0;
             int count = 0;
@@ -190,7 +190,7 @@ namespace OverlappingModel
             }
 
             rSum /= count; gSum /= count; bSum /= count;
-            Color result = Color.FromArgb(rSum, gSum, bSum);
+            var result = new SKColor((byte)rSum, (byte)gSum, (byte)bSum);
             return result;
         }
     }

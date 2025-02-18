@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using SkiaSharp;
 
 namespace OverlappingModel
 {
@@ -6,7 +6,7 @@ namespace OverlappingModel
     {
         public int N { get; set; } = 0;
         public int? Seed { get; set; } = null;
-        public Bitmap? Bitmap { get; set; } = null;
+        public SKBitmap? Bitmap { get; set; } = null;
         public int Width { get; set; } = 0;
         public int Height { get; set; } = 0;
         public bool RotationsEnabled { get; set; } = false;

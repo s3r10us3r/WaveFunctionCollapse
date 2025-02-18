@@ -1,11 +1,10 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
+﻿using SkiaSharp;
 
 namespace OverlappingModel
 {
     internal class ImageAnalyzer
     {
-        private Bitmap bitmap;
+        private SKBitmap bitmap;
         private bool rotationEnabled;
         private bool reflectionEnabled;
         private int n;
@@ -16,7 +15,7 @@ namespace OverlappingModel
         private HashSet<int> leftPatterns;
         private HashSet<int> rightPatterns;
 
-        public ImageAnalyzer(Bitmap bitmap, bool rotationEnabled, bool reflectionEnabled, int n)
+        public ImageAnalyzer(SKBitmap bitmap, bool rotationEnabled, bool reflectionEnabled, int n)
         {
             this.rotationEnabled = rotationEnabled;
             this.reflectionEnabled = reflectionEnabled;

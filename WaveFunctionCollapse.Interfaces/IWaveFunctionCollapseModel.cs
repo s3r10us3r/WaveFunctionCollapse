@@ -1,11 +1,10 @@
-﻿using System.Drawing;
-
+﻿using SkiaSharp;
 
 namespace WaveFunctionCollapse.Interfaces
 {
     public interface IWaveFunctionCollapseModel
     {
-        Bitmap Image { get; }
+        SKBitmap Image { get; }
         int CollapsesLeft { get; }
         void Reset();
         void CollapseNTimes(int n);

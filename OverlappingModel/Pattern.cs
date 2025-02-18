@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace OverlappingModel
+﻿namespace OverlappingModel
 {
     internal class Pattern
     {

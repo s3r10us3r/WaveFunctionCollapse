@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using SkiaSharp;
 using WaveFunctionCollapse.Interfaces;
 
 namespace WaveFunctionCollapse.Avalonia.Helpers;
@@ -12,13 +12,13 @@ public class WfcModelManager
     public int Speed { get; set; }
 
     private readonly IWaveFunctionCollapseModel _model;
-    private readonly Action<Bitmap> updateImageCallback;
+    private readonly Action<SKBitmap> updateImageCallback;
     private readonly Action finishedCallback;
 
     private Task? runningTask;
     private CancellationTokenSource? cts;
 
-    public WfcModelManager(IWaveFunctionCollapseModel model, Action<Bitmap> updateImageCallback, Action finishedFunc)
+    public WfcModelManager(IWaveFunctionCollapseModel model, Action<SKBitmap> updateImageCallback, Action finishedFunc)
     {
         _model = model;
         this.updateImageCallback = updateImageCallback;

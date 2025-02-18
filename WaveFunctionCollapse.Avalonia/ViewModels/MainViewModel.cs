@@ -7,6 +7,7 @@ using ReactiveUI;
 using System.IO;
 using System.Reactive;
 using System.Threading.Tasks;
+using SkiaSharp;
 using WaveFunctionCollapse.Avalonia.Helpers;
 using WaveFunctionCollapse.Interfaces;
 
@@ -112,7 +113,7 @@ public class MainViewModel : ViewModelBase
     private OverlappingModelBuilder SetUpBuilder()
     {
         var builder = new OverlappingModelBuilder();
-        builder.Bitmap = ToSystemDrawingBitmap(InputPreview!);
+        builder.Bitmap = ToSkiaSharpBitmap(InputPreview!);
         builder.N = (int)_n;
         builder.Width = (int)Width!;
         builder.Height = (int)Height!;
@@ -144,25 +145,27 @@ public class MainViewModel : ViewModelBase
         return await runningTask;
     }
 
-    private void UpdateOutputImage(System.Drawing.Bitmap bitmap)
+    private void UpdateOutputImage(SKBitmap bitmap)
     {
         OutputPreview = ToAvaloniaBitmap(bitmap);
     }
 
-    private global::Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(System.Drawing.Bitmap bitmap)
+    private Bitmap ToAvaloniaBitmap(SKBitmap bitmap)
     {
         using var stream = new MemoryStream();
-        bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+        using var data = bitmap.Encode(SKEncodedImageFormat.Png, 100);
+        data.SaveTo(stream);
         stream.Position = 0;
-        return new global::Avalonia.Media.Imaging.Bitmap(stream);
+        return new Bitmap(stream);
     }
 
-    private System.Drawing.Bitmap ToSystemDrawingBitmap(global::Avalonia.Media.Imaging.Bitmap bitmap)
+    private SKBitmap ToSkiaSharpBitmap(Bitmap bitmap)
     {
         using var stream = new MemoryStream();
         bitmap.Save(stream);
         stream.Position = 0;
-        return new System.Drawing.Bitmap(stream);
+        var skBitmap = SKBitmap.Decode(stream);
+        return skBitmap;
     }
 
     private async Task<bool> CheckIfSettingsAreValid()
