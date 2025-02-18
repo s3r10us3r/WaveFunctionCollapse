@@ -4,49 +4,50 @@ namespace OverlappingModel
 {
     internal class CoefficienceSet
     {
-        public int Count { get; private set; }
-        private ulong[] coefficients;
+        public int Count => _coefficients.Sum(BitOperations.PopCount);
+
+        private readonly List<ulong> _coefficients;
+        private int _size;
 
         public CoefficienceSet(int size)
         {
             int arraySize = (size / 64) + 1;
-            coefficients = new ulong[arraySize];
-            UpdateCount();
+            _coefficients = Enumerable.Repeat(0UL, arraySize).ToList();
+            _size = size;
         }
 
-        public void SetAll(Pattern[] patterns)
+        public void SetAll()
         {
-            foreach (var pattern in patterns)
-            {
-                Add(pattern.ID);
-            }
-            Count = patterns.Length;
+            for (int i = 0; i < _size; i++)
+                Add(i);
+        }
+
+        public void SetAll(IEnumerable<int> ids)
+        {
+            foreach (var id in ids)
+                Add(id);
         }
 
         public void Add(int id)
         {
+            Pad(id);
+
             int i = id / 64;
             int bit = id % 64;
 
-            ulong original = coefficients[i];
-            coefficients[i] |= 1UL << bit;
-            if (original != coefficients[i])
-            {
-                Count++;
-            }
+            ulong original = _coefficients[i];
+            _coefficients[i] |= 1UL << bit;
         }
 
-        public void Remove(int id)
+        private void Pad(int size)
         {
-            int i = id / 64;
-            int bit = id % 64;
-
-            ulong original = coefficients[i];
-            coefficients[i] &= ~(1UL << bit);
-            if (original != coefficients[i])
+            if (size <= _size)
+                return;
+            while ((_coefficients.Count - 1) * 64 < size)
             {
-                Count--;
+                _coefficients.Add(0);
             }
+            _size = size;
         }
 
         public bool Contains(int id)
@@ -54,61 +55,45 @@ namespace OverlappingModel
             int i = id / 64;
             int bit = id % 64;
 
-            return (coefficients[i] & (1UL << bit)) != 0;
+            return (_coefficients[i] & (1UL << bit)) != 0;
         }
 
         public void IntersectWith(CoefficienceSet set)
         {
-            for (int i = 0; i < coefficients.Length; i++)
+            PadTwoSets(set);
+            for (int i = 0; i < _coefficients.Count; i++)
             {
-                coefficients[i] &= set.coefficients[i];
+                _coefficients[i] &= set._coefficients[i];
             }
-            UpdateCount();
         }
 
         public void UnionWith(CoefficienceSet set)
         {
-            for (int i = 0; i < coefficients.Length; i++)
+            PadTwoSets(set);
+            for (int i = 0; i < _coefficients.Count; i++)
             {
-                coefficients[i] |= set.coefficients[i];
+                _coefficients[i] |= set._coefficients[i];
             }
-            UpdateCount();
         }
 
-        public List<Pattern> GetPatterns(Pattern[] allPatterns)
+        private void PadTwoSets(CoefficienceSet set)
         {
-            List<Pattern> result = new();
-            for (int i = 0; i < allPatterns.Length; i++)
+            int maxSize = Math.Max(set._size, _size);
+            Pad(maxSize);
+            set.Pad(maxSize);
+        }
+
+        public List<int> GetIds()
+        {
+            List<int> result = new();
+            for (int i = 0; i < _size; i++)
             {
                 if (Contains(i))
                 {
-                    result.Add(allPatterns[i]);
+                    result.Add(i);
                 }
             }
             return result;
-        }
-
-        public int GetCumulativeSum(int[] frequencies)
-        {
-            int sum = 0;
-            for (int i = 0; i < frequencies.Length; i++)
-            {
-                if (Contains(i))
-                {
-                    sum += frequencies[i];
-                }
-            }
-            return sum;
-        }
-
-        private void UpdateCount()
-        {
-            int count = 0;
-            for (int i = 0; i < coefficients.Length; i++)
-            {
-                count += BitOperations.PopCount(coefficients[i]);
-            }
-            Count = count;
         }
     }
 }

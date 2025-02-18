@@ -4,48 +4,51 @@ namespace OverlappingModel
 {
     internal class Pattern
     {
-        public int[,] Pixels { get; private set; }
+        public int[,] Pixels { get; }
         public int Frequency = 1;
         private readonly int n;
-        public readonly int ID;
+        public int Id { get; set; }
 
         public CoefficienceSet[,] OverlappingPatterns { get; private set; }
 
-        public Pattern(int n, int[,] pixels, int id)
+        public Pattern(int n, int[,] pixels)
         {
             if (pixels.GetLength(0) != n || pixels.GetLength(1) != n)
             {
                 throw new ArgumentException("Pixels array must have dimensions of nxn");
             }
-            ID = id;
             this.n = n;
             Pixels = pixels;
+            InitOverlappingPatterns();
         }
 
-        public void MatchPatterns(IEnumerable<Pattern> allPatterns)
+        private void InitOverlappingPatterns()
         {
-            int size = allPatterns.Count();
             OverlappingPatterns = new CoefficienceSet[2 * n - 1, 2 * n - 1];
-            for (int i  = - n + 1; i < n; i++)
+            for (int i = 0; i < 2 * n - 1; i++)
             {
-                for (int j = - n + 1; j < n; j++)
+                for (int j = 0; j < 2 * n - 1; j++)
+                {
+                    OverlappingPatterns[i, j] = new CoefficienceSet(0);
+                }
+            }
+        }
+
+        public void MatchPattern(Pattern pattern)
+        {
+            for (int i = -n + 1; i < n; i++)
+                for (int j = -n + 1; j < n; j++)
                 {
                     if (i == 0 && j == 0)
                         continue;
-
                     int x = i + n - 1;
                     int y = j + n - 1;
 
-                    OverlappingPatterns[x, y] = new CoefficienceSet(size);
-                    foreach (Pattern pattern in allPatterns)
+                    if (DoesOverlap(i, j, pattern))
                     {
-                        if (DoesOverlap(i, j, pattern))
-                        {
-                            OverlappingPatterns[x, y].Add(pattern.ID);
-                        }
+                        OverlappingPatterns[x, y].Add(pattern.Id);
                     }
                 }
-            }
         }
 
         public bool DoesOverlap (int xOffset, int yOffset, Pattern pattern)
@@ -93,7 +96,7 @@ namespace OverlappingModel
             }
         }
 
-        public Pattern Rotate(int id)
+        public Pattern Rotate()
         {
             int[,] rotatedPixels = new int[n, n];
             for (int x = 0; x < n; x++)
@@ -104,12 +107,12 @@ namespace OverlappingModel
                 }
             }
 
-            Pattern result = new(n, rotatedPixels, id);
+            Pattern result = new(n, rotatedPixels);
             result.Frequency = Frequency;
             return result;
         }
 
-        public Pattern Reflect(int id)
+        public Pattern Reflect()
         {
             int[,] reflectedPixels = new int[n, n];
             for (int x = 0; x < n; x++)
@@ -120,40 +123,29 @@ namespace OverlappingModel
                 }
             }
             
-            Pattern result = new(n, reflectedPixels, id);
+            Pattern result = new(n, reflectedPixels);
             result.Frequency = Frequency;
             return result;
         }
 
-        public Bitmap Image
-        { 
-            get
-            {
-                Bitmap bitmap = new Bitmap(n, n);
-                for (int x = 0; x < n; x++)
-                {
-                    for (int y = 0; y < n; y++)
-                    {
-                        Color color = Color.FromArgb(Pixels[x, y]);
-                        bitmap.SetPixel(x, y, color);
-                    }
-                }
-                return bitmap;
-            }
-        }
-
         public override bool Equals(object? obj)
         {
-            if (obj is not Pattern)
+            if (obj is not Pattern p)
                 return false;
+            
+            for (int x = 0; x < n; x++)
+                for (int y = 0; y < n; y++)
+                {
+                    if (Pixels[x, y] != p.Pixels[x, y])
+                        return false;
+                }
 
-            Pattern p = (Pattern)obj;
-            return DoesOverlap(0, 0, p);
+            return true;
         }
 
         public override int GetHashCode()
         {
-            return ID;
+            return Id;
         }
     }
 }

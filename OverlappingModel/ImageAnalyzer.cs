@@ -9,11 +9,12 @@ namespace OverlappingModel
         private bool rotationEnabled;
         private bool reflectionEnabled;
         private int n;
+        private PatternSet patternSet = new();
 
-        private List<Pattern> topPatterns;
-        private List<Pattern> bottomPatterns;
-        private List<Pattern> leftPatterns;
-        private List<Pattern> rightPatterns;
+        private HashSet<int> topPatterns;
+        private HashSet<int> bottomPatterns;
+        private HashSet<int> leftPatterns;
+        private HashSet<int> rightPatterns;
 
         public ImageAnalyzer(Bitmap bitmap, bool rotationEnabled, bool reflectionEnabled, int n)
         {
@@ -29,114 +30,63 @@ namespace OverlappingModel
         
         public ImageAnalysisResult Analyze()
         {
-            int idCounter = 0;
             List<Pattern> patterns = new();
             for (int y = 0; y <= bitmap.Height - n; y++)
             {
                 for (int x = 0; x <= bitmap.Width - n; x++)
                 {
                     int[,] pixels = CutBitmap(x, y);
-                    Pattern pattern = new(n, pixels, idCounter++);
+                    Pattern pattern = new(n, pixels);
+                    AddToPatterns(pattern, x, y);
 
-                    int ind = patterns.FindIndex(p => p.Equals(pattern));
-                    if (ind != -1)
+                    if (reflectionEnabled)
                     {
-                        patterns[ind].Frequency++;
-                        idCounter--;
-                        pattern = patterns[ind];
-                    }
-                    else
-                    {
-                        patterns.Add(pattern);
+                        HandleReflection(pattern, x, y);
                     }
 
-                    if (x == 0)
-                        AddToPatterns(leftPatterns, pattern);
-                    if (y == 0)
-                        AddToPatterns(topPatterns, pattern);
-                    if (x == bitmap.Width - n)
-                        AddToPatterns(rightPatterns, pattern);
-                    if (y == bitmap.Height - n)
-                        AddToPatterns(bottomPatterns, pattern);
-                }
-            }
-
-            if (rotationEnabled)
-            {
-                for (int i = 0; i < patterns.Count; i++)
-                {
-                    Pattern oPattern = patterns[i];
-                    for (int j = 0; j < 3; j++)
+                    if (rotationEnabled)
                     {
-                        Pattern pattern = oPattern.Rotate(idCounter++);
-                        int ind = patterns.FindIndex(p => p.Equals(pattern));
-                        if (ind != -1)
-                        {
-                            patterns[ind].Frequency += pattern.Frequency;
-                            idCounter--;
-                        }
-                        else
-                        {
-                            patterns.Add(pattern);
-                            if (topPatterns.Contains(oPattern))
-                                AddToPatterns(topPatterns, pattern);
-                            if (bottomPatterns.Contains(oPattern))
-                                AddToPatterns(bottomPatterns, pattern);
-                            if (leftPatterns.Contains(oPattern))
-                                AddToPatterns(leftPatterns, pattern);
-                            if (rightPatterns.Contains(oPattern))
-                                AddToPatterns(rightPatterns, pattern);
-                        }
-                    }
-
-                   
-                }
-            }
-
-            if (reflectionEnabled)
-            {
-                for (int i = 0; i < patterns.Count; i++)
-                {
-                    Pattern oPattern = patterns[i];
-                    Pattern pattern = oPattern.Reflect(idCounter++);
-                    int ind = patterns.FindIndex(p => p.Equals(pattern));
-                    if (ind != -1)
-                    {
-                        patterns[ind].Frequency += pattern.Frequency;
-                        idCounter--;
-                    }
-                    else
-                    {
-                        patterns.Add(pattern);
-                        if (topPatterns.Contains(oPattern))
-                            AddToPatterns(topPatterns, pattern);
-                        if (bottomPatterns.Contains(oPattern))
-                            AddToPatterns(bottomPatterns, pattern);
-                        if (leftPatterns.Contains(oPattern))
-                            AddToPatterns(rightPatterns, pattern);
-                        if (rightPatterns.Contains(oPattern))
-                            AddToPatterns(leftPatterns, pattern);
+                        HandleRotation(pattern, x, y);
                     }
                 }
             }
 
-            Pattern[] allInstances = patterns.ToArray();
-            int[] frequencies = new int[allInstances.Length];
-            for (int i = 0; i < allInstances.Length; i++)
-            {
-                Pattern pattern = allInstances[i];
-                pattern.MatchPatterns(patterns);
-                frequencies[i] = pattern.Frequency;
-            }
+            var allInstances = patternSet.GetPatterns();
+            var frequencies = patternSet.GetFrequencies(); 
+
 
             return new ImageAnalysisResult(allInstances, frequencies, ListToCSet(topPatterns, allInstances.Length), ListToCSet(leftPatterns, allInstances.Length), ListToCSet(rightPatterns, allInstances.Length), ListToCSet(bottomPatterns, allInstances.Length));
         }
-        private void AddToPatterns(List<Pattern> patterns, Pattern pattern)
+
+        private void HandleRotation(Pattern pattern, int x, int y)
         {
-            if (!patterns.Contains(pattern))
+            for (int i = 0; i < 3; i++)
             {
-                patterns.Add(pattern);
+                pattern = pattern.Rotate();
+                AddToPatterns(pattern, x, y);
+                if (reflectionEnabled)
+                    HandleReflection(pattern, x, y);
             }
+        }
+
+        private void HandleReflection(Pattern pattern, int x, int y)
+        {
+            pattern = pattern.Reflect();
+            AddToPatterns(pattern, bitmap.Width - x - n, y);
+        }
+
+        private void AddToPatterns(Pattern pattern, int x, int y)
+        {
+            var ind = patternSet.TryAddPattern(pattern);
+
+            if (x == 0)
+                leftPatterns.Add(ind);
+            if (y == 0)
+                topPatterns.Add(ind);
+            if (x == bitmap.Width - n)
+                rightPatterns.Add(ind);
+            if (y == bitmap.Height - n)
+                bottomPatterns.Add(ind);
         }
 
         private int[,] CutBitmap(int x, int y)
@@ -152,15 +102,13 @@ namespace OverlappingModel
             return cut;
         }
 
-        private CoefficienceSet ListToCSet(List<Pattern> patterns, int size)
+        private CoefficienceSet ListToCSet(IEnumerable<int> ids, int size)
         {
             CoefficienceSet cset = new(size);
-            cset.SetAll(patterns.ToArray());
+            cset.SetAll(ids);
 
             return cset;
         }
-
-        
     }
 }
 

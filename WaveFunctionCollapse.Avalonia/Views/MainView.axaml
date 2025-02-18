@@ -27,7 +27,7 @@
 
 			<!--Control row-->
 			<StackPanel Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
-				<Button Background="Transparent" IsEnabled="{Binding HasStarted}" Command="{Binding ResetCommand}">
+				<Button Background="Transparent" IsEnabled="{Binding CanReset}" Command="{Binding ResetCommand}">
 					<Svg Path="/Assets/rotate-right-solid.svg"></Svg>
 				</Button>
 				<Button Background="Transparent" Command="{Binding BeginCommand}">
@@ -101,6 +101,9 @@
 				>
 				<Image Source="{Binding OutputPreview}" RenderOptions.BitmapInterpolationMode="None"/>
 			</Border>
+
+			<Label Grid.Column="2" Grid.Row="1" FontSize="20" Content="{Binding InitializingText}" IsVisible="{Binding IsInitializing}">
+            </Label>
 		</Grid>
 	</Border>
 </UserControl>

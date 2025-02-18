@@ -26,8 +26,6 @@ public class WfcModelManager
         updateImageCallback(_model.Image);
     }
 
-    public bool IsRunning => runningTask != null && runningTask.Status == TaskStatus.Running;
-
     public void Start()
     {
         if (runningTask != null && runningTask.Status == TaskStatus.Running)
@@ -64,8 +62,8 @@ public class WfcModelManager
             updateImageCallback(_model.Image);
             stopwatch.Stop();
             var ellapsedMillis = (int)stopwatch.ElapsedMilliseconds;
-            if (ellapsedMillis < 100)
-                Thread.Sleep(100 - ellapsedMillis);
+            if (ellapsedMillis < 10)
+                Thread.Sleep(10 - ellapsedMillis);
         }
         if (_model.CollapsesLeft == 0)
             finishedCallback();

@@ -5,26 +5,26 @@
         public bool HasCollapsed { get; private set; } = false;
         public int Entropy => HasCollapsed ? -1 : patterns.Count;
 
-        public CoefficienceSet Patterns => patterns;
-
         private CoefficienceSet patterns;
         private CoefficienceSet[,] overlapping;
-        private Pattern[] allPatterns;
-        private int[] frequencies;
         private readonly int n;
         public Pattern CollapsedValue { get; private set; }
 
-        public WaveCell(Pattern[] allPatterns, int[] frequencies, int n)
+        public WaveCell(int n)
         {
-            this.frequencies = frequencies;
-            this.allPatterns = allPatterns;
-            int size = allPatterns.Length;
+            var size = PatternsSingleton.Patterns.Length;
             this.n = n;
             patterns = new CoefficienceSet(size);
-            patterns.SetAll(allPatterns);
+            patterns.SetAll();
             overlapping = new CoefficienceSet[2 * n - 1, 2 * n - 1];
-
-            UpdateAllOverlappingPatterns();
+            for (int i = 0; i < 2 * n - 1; i++)
+            {
+                for (int j = 0; j < 2 * n - 1; j++)
+                {
+                    overlapping[i, j] = new CoefficienceSet(size);
+                    overlapping[i, j].SetAll();
+                }
+            }
         }
 
         public void Collapse(Random rand)
@@ -34,14 +34,15 @@
                 throw new InvalidOperationException("Wave cell has already collapsed!");
             }
 
-            List<Pattern> patternsToChoose = patterns.GetPatterns(allPatterns);
+            var ids = patterns.GetIds();
 
-            int cumulativeSum = patterns.GetCumulativeSum(frequencies);
+            int cumulativeSum = GetCumulativeSum(ids);
             double randValue = rand.NextDouble() * cumulativeSum;
 
             int currentSum = 0;
-            foreach (Pattern pattern in patternsToChoose)
+            foreach (var id in ids)
             {
+                var pattern = PatternsSingleton.Patterns[id];
                 currentSum += pattern.Frequency;
                 if (currentSum >= randValue)
                 {
@@ -51,6 +52,17 @@
                     break;
                 }
             }
+        }
+
+        private int GetCumulativeSum(List<int> ids)
+        {
+            int sum = 0;
+            foreach (int id in ids)
+            {
+                sum += PatternsSingleton.Patterns[id].Frequency;
+            }
+
+            return sum;
         }
 
         public void Update(CoefficienceSet forcedPatterns)
@@ -77,26 +89,25 @@
 
         private void UpdateAllOverlappingPatterns()
         {
+            List<int> ids = patterns.GetIds();
+            var patternList = ids.Select(id => PatternsSingleton.Patterns[id]).ToList();
+
             for (int i = -n + 1; i <= n - 1; i++)
-            {
                 for (int j = -n + 1; j <= n - 1; j++)
                 {
                     if (i == 0 && j == 0)
                         continue;
-
-                    UpdateOverlappingPatterns(i, j);
+                    UpdateOverlappingPatterns(i, j, patternList);
                 }
-            }
         }
 
-        private void UpdateOverlappingPatterns(int xOffset, int yOffset)
+        private void UpdateOverlappingPatterns(int xOffset, int yOffset, List<Pattern> patternList)
         {
             int x = xOffset + n - 1;
             int y = yOffset + n - 1;
 
-            CoefficienceSet newPatterns = new(allPatterns.Length);
-            List<Pattern> consistingPatterns = patterns.GetPatterns(allPatterns);
-            foreach (var pattern in consistingPatterns)
+            CoefficienceSet newPatterns = new(PatternsSingleton.Patterns.Length);
+            foreach (var pattern in patternList)
             {
                 newPatterns.UnionWith(pattern.GetOverlappingPatterns(xOffset, yOffset));
             }
@@ -107,7 +118,7 @@
         {
             if (Entropy == 0)
             {
-                return 0x00FF00;
+                return 0x00FF00; // We return green color if entropy is 0 for debugging
             }
 
             if (HasCollapsed)
@@ -115,10 +126,11 @@
                 return CollapsedValue[x, y];
             }
 
-            List<Pattern> consistingPatterns = patterns.GetPatterns(allPatterns);
+            List<int> ids = patterns.GetIds();
             int r = 0, g = 0, b = 0;
-            foreach(Pattern pattern in consistingPatterns)
+            foreach(var id in ids)
             {
+                var pattern = PatternsSingleton.Patterns[id];
                 int pixel = pattern[x, y];
                 r += pixel >> 16 & 0xFF;
                 g += pixel >> 8 & 0xFF;

@@ -8,6 +8,7 @@ using System.IO;
 using System.Reactive;
 using System.Threading.Tasks;
 using WaveFunctionCollapse.Avalonia.Helpers;
+using WaveFunctionCollapse.Interfaces;
 
 namespace WaveFunctionCollapse.Avalonia.ViewModels;
 
@@ -55,12 +56,16 @@ public class MainViewModel : ViewModelBase
 
     private bool _hasStarted = false;
     private bool _isStarted = false;
-    private bool _forwardEnabled = false;
+    private bool _isInitializing = false;
+
+    public bool CanReset => HasStarted && !IsInitializing;
 
     public bool HasStarted { get => _hasStarted; set => this.RaiseAndSetIfChanged(ref _hasStarted, value); }
     public bool IsStarted { get => _isStarted; set => this.RaiseAndSetIfChanged(ref _isStarted, value); }
-    public bool ForwardEnabled { get => _forwardEnabled; set => this.RaiseAndSetIfChanged(ref _forwardEnabled, value); }
-    public bool CanSkip => !IsStarted && HasStarted;
+    public bool IsInitializing { get => _isInitializing; set => this.RaiseAndSetIfChanged(ref _isInitializing, value); }
+
+    private string _initializingText = "Initializing...";
+    public string InitializingText { get => _initializingText; set => this.RaiseAndSetIfChanged(ref _initializingText, value); }
 
     Bitmap? _inputPreview;
     public Bitmap? InputPreview { get => _inputPreview; set => this.RaiseAndSetIfChanged(ref _inputPreview, value); }
@@ -81,26 +86,15 @@ public class MainViewModel : ViewModelBase
         {
             if (await CheckIfSettingsAreValid())
             {
-                var builder = new OverlappingModelBuilder();
-                builder.Bitmap = ToSystemDrawingBitmap(InputPreview!);
-                builder.N = (int)_n;
-                builder.Width = (int)Width!;
-                builder.Height = (int)Height!;
-                builder.RotationsEnabled = RotationsEnabled;
-                builder.ReflectionsEnabled = ReflectionsEnabled;
-                builder.LockTop = LockTop;
-                builder.LockBottom = LockBottom;
-                builder.LockLeft = LockLeft;
-                builder.LockRight = LockRight;
-                var wfcModel = builder.Build();
+                IsStarted = true;
+                HasStarted = true;
+                var wfcModel = await InitializeModel();
                 modelManager = new WfcModelManager(wfcModel, UpdateOutputImage, () => {
                     IsStarted = false;
                     HasStarted = false;
                 });
                 modelManager.Speed = 10;
                 modelManager.Start();
-                HasStarted = true;
-                IsStarted = true;
             }
         }
         else if (IsStarted)
@@ -113,6 +107,41 @@ public class MainViewModel : ViewModelBase
             modelManager!.Start();
             IsStarted = true;
         }
+    }
+
+    private OverlappingModelBuilder SetUpBuilder()
+    {
+        var builder = new OverlappingModelBuilder();
+        builder.Bitmap = ToSystemDrawingBitmap(InputPreview!);
+        builder.N = (int)_n;
+        builder.Width = (int)Width!;
+        builder.Height = (int)Height!;
+        builder.RotationsEnabled = RotationsEnabled;
+        builder.ReflectionsEnabled = ReflectionsEnabled;
+        builder.LockTop = LockTop;
+        builder.LockBottom = LockBottom;
+        builder.LockLeft = LockLeft;
+        builder.LockRight = LockRight;
+        return builder;
+    }
+
+    private async Task<IWaveFunctionCollapseModel> InitializeModel()
+    {
+        IsInitializing = true;
+        var builder = SetUpBuilder();
+        var runningTask = Task.Run(() => builder.Build());
+        int dots = 0;
+
+        while (!runningTask.IsCompleted)
+        {
+            dots += 1;
+            dots %= 4;
+            InitializingText = "Initializing" + new string('.', dots);
+            await Task.Delay(300);
+        }
+
+        IsInitializing = false;
+        return await runningTask;
     }
 
     private void UpdateOutputImage(System.Drawing.Bitmap bitmap)

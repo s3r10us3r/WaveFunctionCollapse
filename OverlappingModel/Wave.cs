@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Reflection;
+﻿using System.Drawing;
 using WaveFunctionCollapse.Interfaces.Errors;
 
 namespace OverlappingModel
@@ -13,12 +10,13 @@ namespace OverlappingModel
         {
             get
             {
-                foreach((int x, int y) in updatedPixels)
+                var bitmap = new Bitmap(width, height);
+                for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
                 {
                     Color color = GetPixel(x, y);
                     bitmap.SetPixel(x, y, color);
                 }
-                updatedPixels = new();
                 return bitmap;
             }
         }
@@ -27,8 +25,6 @@ namespace OverlappingModel
         private readonly Random rand;
         //pattern matching starts from top left corner
         private WaveCell[,] wave;
-        private readonly Pattern[] allPatterns;
-        private readonly int[] frequencies;
 
         private readonly CoefficienceSet topPatterns;
         private readonly CoefficienceSet bottomPatterns;
@@ -45,23 +41,18 @@ namespace OverlappingModel
 
         private int lowestEntropy = int.MaxValue;
         private (int x, int y) lowestEntropyCords;
-        private Bitmap bitmap;
-        private HashSet<(int x, int y)> updatedPixels = new();
-
-
 
         public Wave(int width, int height, int n, Random rand, ImageAnalysisResult analysisResult, bool lockTop, bool lockBottom, bool lockRight, bool lockLeft)
         {
             this.width = width;
             this.height = height;
-            allPatterns = analysisResult.Patterns;
-            frequencies = analysisResult.Frequencies;
             this.n = n;
             this.rand = rand;
             this.lockTop = lockTop;
             this.lockBottom = lockBottom;
             this.lockRight = lockRight;
             this.lockLeft = lockLeft;
+            PatternsSingleton.Patterns = analysisResult.Patterns;
             topPatterns = analysisResult.TopPatterns;
             bottomPatterns = analysisResult.BottomPatterns;
             rightPatterns = analysisResult.RightPatterns;
@@ -77,7 +68,7 @@ namespace OverlappingModel
             {
                 for (int y = 0; y <= height - n; y++)
                 {
-                    wave[x, y] = new(allPatterns, frequencies, n);
+                    wave[x, y] = new(n);
                     if (y == 0 && lockTop)
                     {
                         wave[x, y].Update(topPatterns);
@@ -97,17 +88,8 @@ namespace OverlappingModel
                 }
             }
 
-            ResetBitmap();
-
             CollapsesLeft = (width - n + 1) * (height - n + 1);
-            if (lockTop || lockBottom || lockRight || lockLeft)
-            {
-                ObserveAll();
-            }
-            else
-            {
-                Observe(0, 0);
-            }
+            ObserveAll();
         }
 
         public int Collapse()
@@ -138,52 +120,37 @@ namespace OverlappingModel
             lowestEntropy = int.MaxValue;
             Queue<(int, int)> observationQueue = new([(x, y)]);
             HashSet<(int, int)> inQueue = new([(x, y)]);
-            object queueLock = new();
-
 
             while (observationQueue.Count > 0)
             {
                 (x, y) = observationQueue.Dequeue();
                 inQueue.Remove((x, y));
 
-                Parallel.For(Math.Max(x - n + 1, 0), Math.Min(x + n, width - n + 1), i =>
+                int startI = Math.Max(x - n + 1, 0);
+                int endI = Math.Min(x + n, width - n + 1);
+
+                int startJ = Math.Max(y - n + 1, 0);
+                int endJ = Math.Min(y + n, height - n + 1);
+
+                for (int i = startI; i < endI; i++)
+                for (int j = startJ; j < endJ; j++)
                 {
-                    Parallel.For(Math.Max(y - n + 1, 0), Math.Min(y + n, height - n + 1), j =>
+                    int xOffset = i - x;
+                    int yOffset = j - y;
+                    if ((xOffset == 0 && yOffset == 0) || wave[i, j].HasCollapsed)
                     {
-                        int xOffset = i - x;
-                        int yOffset = j - y;
-
-                        if ((xOffset == 0 && yOffset == 0) || wave[i, j].HasCollapsed)
-                        {
-                            return;
-                        }
-
-                        int initialEntropy = wave[i, j].Entropy;
-                        CoefficienceSet boundingSet = wave[x, y].GetOverlappingPatterns(xOffset, yOffset);
-                        wave[i, j].Update(boundingSet);
-                        if (wave[i, j].Entropy != initialEntropy)
-                        {
-                            lock (queueLock)
-                            {
-                                for (int px = i; px < i + n; px++)
-                                {
-                                    for (int py = j; py < j + n; py++)
-                                    {
-                                        updatedPixels.Add((px, py));
-                                    }
-                                }
-                                if (!inQueue.Contains((x, y)))
-                                {
-                                    observationQueue.Enqueue((i, j));
-                                    inQueue.Add((i, j));
-                                }
-                            }
-                        }
-                    });
-                });
-                
+                        continue;
+                    }
+                    int initialEntropy = wave[i, j].Entropy;
+                    CoefficienceSet boundingSet = wave[x, y].GetOverlappingPatterns(xOffset, yOffset);
+                    wave[i, j].Update(boundingSet);
+                    if (wave[i, j].Entropy != initialEntropy && !inQueue.Contains((i, j)))
+                    {
+                        observationQueue.Enqueue((i, j));
+                        inQueue.Add((i, j));
+                    }
+                }
             }
-
             FindLowestEntropy();
         }
 
@@ -225,20 +192,6 @@ namespace OverlappingModel
             rSum /= count; gSum /= count; bSum /= count;
             Color result = Color.FromArgb(rSum, gSum, bSum);
             return result;
-        }
-
-        private void ResetBitmap()
-        {
-            bitmap = new Bitmap(width, height);
-            for(int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    Color color = GetPixel(x, y);
-                    bitmap.SetPixel(x, y, color);
-                }
-            }
-            updatedPixels = new();
         }
     }
 }
