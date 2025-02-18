@@ -1,12 +1,13 @@
-using OverlappingModel;
 using System.Drawing;
+using OverlappingModel;
+using SkiaSharp;
 
 namespace PerformanceTest
 {
     [TestFixture]
     public class Tests
     {
-        private Bitmap bitmap;
+        private SKBitmap bitmap;
         private OverlappingModelBuilder builder;
 
         [SetUp]
@@ -14,7 +15,7 @@ namespace PerformanceTest
         {
             var imagePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Flowers.png");
             Assert.IsTrue(File.Exists(imagePath));
-            bitmap = new Bitmap(imagePath);
+            bitmap = SKBitmap.Decode(imagePath);
 
             builder = new OverlappingModelBuilder();
             builder.Bitmap = bitmap;

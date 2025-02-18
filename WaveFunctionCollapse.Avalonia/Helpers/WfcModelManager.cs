@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SkiaSharp;
 using WaveFunctionCollapse.Interfaces;
+using WaveFunctionCollapse.Interfaces.Errors;
 
 namespace WaveFunctionCollapse.Avalonia.Helpers;
 
@@ -13,12 +14,12 @@ public class WfcModelManager
 
     private readonly IWaveFunctionCollapseModel _model;
     private readonly Action<SKBitmap> updateImageCallback;
-    private readonly Action finishedCallback;
+    private readonly Action<bool> finishedCallback;
 
     private Task? runningTask;
     private CancellationTokenSource? cts;
 
-    public WfcModelManager(IWaveFunctionCollapseModel model, Action<SKBitmap> updateImageCallback, Action finishedFunc)
+    public WfcModelManager(IWaveFunctionCollapseModel model, Action<SKBitmap> updateImageCallback, Action<bool> finishedFunc)
     {
         _model = model;
         this.updateImageCallback = updateImageCallback;
@@ -50,22 +51,32 @@ public class WfcModelManager
 
     private void Run(CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested && _model.CollapsesLeft > 0)
+        try
         {
-            var stopwatch = Stopwatch.StartNew();
-            int count = 0;
-            while (!cancellationToken.IsCancellationRequested && _model.CollapsesLeft > 0 && count < Speed)
+            while (!cancellationToken.IsCancellationRequested && _model.CollapsesLeft > 0)
             {
-                count++;
-                _model.Collapse();
+                var stopwatch = Stopwatch.StartNew();
+                int count = 0;
+                while (!cancellationToken.IsCancellationRequested && _model.CollapsesLeft > 0 && count < Speed)
+                {
+                    count++;
+                    _model.Collapse();
+                }
+
+                updateImageCallback(_model.Image);
+                stopwatch.Stop();
+                var ellapsedMillis = (int)stopwatch.ElapsedMilliseconds;
+                if (ellapsedMillis < 10)
+                    Thread.Sleep(10 - ellapsedMillis);
             }
-            updateImageCallback(_model.Image);
-            stopwatch.Stop();
-            var ellapsedMillis = (int)stopwatch.ElapsedMilliseconds;
-            if (ellapsedMillis < 10)
-                Thread.Sleep(10 - ellapsedMillis);
+
+            if (_model.CollapsesLeft == 0)
+                finishedCallback(true);
         }
-        if (_model.CollapsesLeft == 0)
-            finishedCallback();
+        catch (NoPossibleCollapseException e)
+        {
+            Debug.WriteLine(e.Message);
+            finishedCallback(false);
+        }
     }
 }

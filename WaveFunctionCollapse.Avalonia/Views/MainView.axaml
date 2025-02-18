@@ -36,6 +36,13 @@
 						<Svg Path="/Assets/pause-solid.svg" IsVisible="{Binding IsStarted}"></Svg>
 					</Panel>
 				</Button>
+				
+				<Button Background="Transparent" 
+				        Command="{Binding SaveImageCommand}" 
+				        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+				        IsVisible="{Binding HasFinished}">
+					<Svg Path="/Assets/download-solid.svg"></Svg>
+				</Button>
 			</StackPanel>
 
 			<!--Settings row-->

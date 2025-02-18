@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="675"
         Width="1200" Height="675"
         x:Class="WaveFunctionCollapse.Avalonia.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="WaveFunctionCollapse.Avalonia">
+        Icon="/Assets/wfc.png"
+        Title="Wave Function Collapse">
         <views:MainView />
 </Window>

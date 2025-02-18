@@ -40,12 +40,12 @@ namespace OverlappingModel
 
                     if (reflectionEnabled)
                     {
-                        HandleReflection(pattern, x, y);
+                        HandleReflection(pattern);
                     }
 
                     if (rotationEnabled)
                     {
-                        HandleRotation(pattern, x, y);
+                        HandleRotation(pattern);
                     }
                 }
             }
@@ -57,21 +57,21 @@ namespace OverlappingModel
             return new ImageAnalysisResult(allInstances, frequencies, ListToCSet(topPatterns, allInstances.Length), ListToCSet(leftPatterns, allInstances.Length), ListToCSet(rightPatterns, allInstances.Length), ListToCSet(bottomPatterns, allInstances.Length));
         }
 
-        private void HandleRotation(Pattern pattern, int x, int y)
+        private void HandleRotation(Pattern pattern)
         {
             for (int i = 0; i < 3; i++)
             {
                 pattern = pattern.Rotate();
-                AddToPatterns(pattern, x, y);
+                patternSet.TryAddPattern(pattern);
                 if (reflectionEnabled)
-                    HandleReflection(pattern, x, y);
+                    HandleReflection(pattern);
             }
         }
 
-        private void HandleReflection(Pattern pattern, int x, int y)
+        private void HandleReflection(Pattern pattern)
         {
             pattern = pattern.Reflect();
-            AddToPatterns(pattern, bitmap.Width - x - n, y);
+            patternSet.TryAddPattern(pattern);
         }
 
         private void AddToPatterns(Pattern pattern, int x, int y)

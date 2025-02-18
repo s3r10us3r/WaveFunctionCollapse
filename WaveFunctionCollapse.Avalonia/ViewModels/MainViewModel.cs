@@ -1,12 +1,15 @@
-﻿using Avalonia.Controls;
+﻿using System.Collections.Generic;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using MsBox.Avalonia;
 using OverlappingModel;
 using ReactiveUI;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Reactive;
 using System.Threading.Tasks;
+using MsBox.Avalonia.Enums;
 using SkiaSharp;
 using WaveFunctionCollapse.Avalonia.Helpers;
 using WaveFunctionCollapse.Interfaces;
@@ -20,6 +23,7 @@ public class MainViewModel : ViewModelBase
         ChooseImageCommand = ReactiveCommand.CreateFromTask<Window>(ChooseImage);
         BeginCommand = ReactiveCommand.CreateFromTask(Begin);
         ResetCommand = ReactiveCommand.Create(ResetImage);
+        SaveImageCommand = ReactiveCommand.CreateFromTask<Window>(SaveImage);
     }
 
     //Settings
@@ -55,26 +59,39 @@ public class MainViewModel : ViewModelBase
     public bool LockLeft { get => _lockLeft; set => this.RaiseAndSetIfChanged(ref _lockLeft, value); }
     public bool LockRight { get => _lockRight; set => this.RaiseAndSetIfChanged(ref _lockRight, value); }
 
-    private bool _hasStarted = false;
-    private bool _isStarted = false;
-    private bool _isInitializing = false;
+    private State _state = State.NotStarted;
 
-    public bool CanReset => HasStarted && !IsInitializing;
-
-    public bool HasStarted { get => _hasStarted; set => this.RaiseAndSetIfChanged(ref _hasStarted, value); }
-    public bool IsStarted { get => _isStarted; set => this.RaiseAndSetIfChanged(ref _isStarted, value); }
-    public bool IsInitializing { get => _isInitializing; set => this.RaiseAndSetIfChanged(ref _isInitializing, value); }
-
+    private State RunningState
+    {
+        get => _state;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _state, value);
+            this.RaisePropertyChanged(nameof(CanReset));
+            this.RaisePropertyChanged(nameof(HasStarted));
+            this.RaisePropertyChanged(nameof(IsInitializing));
+            this.RaisePropertyChanged(nameof(IsStarted));
+            this.RaisePropertyChanged(nameof(HasFinished));
+        }
+    }
+    public bool CanReset => HasStarted && !IsInitializing && !IsStarted;
+    public bool HasStarted => RunningState is State.HasStartedNotRunning or State.IsRunning;
+    public bool IsStarted => RunningState is State.IsRunning;
+    public bool IsInitializing => RunningState is State.Initializing;
+    public bool HasFinished => RunningState is State.HasFinished;
+    
+    
     private string _initializingText = "Initializing...";
     public string InitializingText { get => _initializingText; set => this.RaiseAndSetIfChanged(ref _initializingText, value); }
 
-    Bitmap? _inputPreview;
+    private Bitmap? _inputPreview;
     public Bitmap? InputPreview { get => _inputPreview; set => this.RaiseAndSetIfChanged(ref _inputPreview, value); }
     public bool IsImageChosen => InputPreview is not null;
 
     public ReactiveCommand<Window, Unit> ChooseImageCommand { get; }
     public ReactiveCommand<Unit, Unit> BeginCommand { get; }
     public ReactiveCommand<Unit, Unit> ResetCommand { get; }
+    public ReactiveCommand<Window, Unit> SaveImageCommand { get; }
 
     Bitmap? _outputPreview;
     public Bitmap? OutputPreview { get => _outputPreview; set => this.RaiseAndSetIfChanged(ref _outputPreview, value); }
@@ -87,29 +104,40 @@ public class MainViewModel : ViewModelBase
         {
             if (await CheckIfSettingsAreValid())
             {
-                IsStarted = true;
-                HasStarted = true;
+                RunningState = State.Initializing;
                 var wfcModel = await InitializeModel();
-                modelManager = new WfcModelManager(wfcModel, UpdateOutputImage, () => {
-                    IsStarted = false;
-                    HasStarted = false;
+                modelManager = new WfcModelManager(wfcModel, UpdateOutputImage, (bool didSucceed) =>
+                {
+                    if (!didSucceed)
+                        DisplayDialog();
+                    RunningState = State.HasFinished;
                 });
                 modelManager.Speed = 10;
                 modelManager.Start();
+                RunningState = State.IsRunning;
             }
         }
-        else if (IsStarted)
+        else if (RunningState is State.IsRunning)
         {
             modelManager!.Stop();
-            IsStarted = false;
+            RunningState = State.HasStartedNotRunning;
         }
         else
         {
             modelManager!.Start();
-            IsStarted = true;
+            RunningState = State.IsRunning;
         }
     }
 
+    private async Task DisplayDialog()
+    {
+        var messageBox = MessageBoxManager
+            .GetMessageBoxStandard("Error", "The algorithm ran into a contradiction so it can not proceed further", 
+                ButtonEnum.Ok);
+
+        await messageBox.ShowAsync();
+    }
+    
     private OverlappingModelBuilder SetUpBuilder()
     {
         var builder = new OverlappingModelBuilder();
@@ -128,7 +156,7 @@ public class MainViewModel : ViewModelBase
 
     private async Task<IWaveFunctionCollapseModel> InitializeModel()
     {
-        IsInitializing = true;
+        RunningState = State.Initializing;
         var builder = SetUpBuilder();
         var runningTask = Task.Run(() => builder.Build());
         int dots = 0;
@@ -140,8 +168,6 @@ public class MainViewModel : ViewModelBase
             InitializingText = "Initializing" + new string('.', dots);
             await Task.Delay(300);
         }
-
-        IsInitializing = false;
         return await runningTask;
     }
 
@@ -232,7 +258,33 @@ public class MainViewModel : ViewModelBase
     private void ResetImage()
     {
         modelManager?.Reset();
-        IsStarted = false;
+        RunningState = State.HasStartedNotRunning;
+    }
+
+    private async Task SaveImage(Window parentWindow)
+    {
+        var saveFileDialog = new SaveFileDialog
+        {
+            Title = "Save Image",
+            InitialFileName = "wfc.png",
+            Filters = new List<FileDialogFilter>
+            {
+                new FileDialogFilter { Name = "PNG", Extensions = new List<string> { "png" } },
+                new FileDialogFilter { Name = "JPEG", Extensions = new List<string> { "jpg", "jpeg" } },
+                new FileDialogFilter { Name = "Bitmap", Extensions = new List<string> { "bmp" } }
+            }
+        };
+
+        var result = await saveFileDialog.ShowAsync(parentWindow);
+        if (!string.IsNullOrEmpty(result) && OutputPreview != null)
+        {
+            OutputPreview.Save(result);
+        }
+    }
+
+    private enum State
+    {
+        NotStarted, Initializing, HasStartedNotRunning, IsRunning, HasFinished
     }
 }
 
